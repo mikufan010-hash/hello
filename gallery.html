@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery — Visual Tone</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --ink: #111;
+      --paper: #f5f3ee;
+      --rule: #d8d5ce;
+      --muted: #999;
+      --mono: 'DM Mono', monospace;
+      --serif: 'Instrument Serif', serif;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 13px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      border-bottom: 1px solid var(--rule);
+      padding: 20px 40px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+    }
+
+    .logo {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-style: italic;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .logo-sub {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .back {
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+    }
+
+    .back:hover {
+      color: var(--ink);
+    }
+
+    .page-title {
+      padding: 40px 40px 24px;
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .page-title h1 {
+      font-family: var(--serif);
+      font-size: 32px;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .count {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    main {
+      flex: 1;
+      padding: 32px 40px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      border: 1px solid var(--rule);
+    }
+
+    .card {
+      background: var(--paper);
+      text-decoration: none;
+      color: var(--ink);
+      display: block;
+      transition: background 0.15s;
+      border: none;
+    }
+
+    .card:hover {
+      background: #eeecea;
+    }
+
+    .card-thumb {
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .card-thumb iframe {
+      width: 200%;
+      height: 200%;
+      transform: scale(0.5);
+      transform-origin: top left;
+      pointer-events: none;
+      border: none;
+    }
+
+    .card-body {
+      padding: 16px 20px;
+    }
+
+    .card-concept {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .card-title {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+
+    .card-swatches {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+
+    .swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 0.5px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .card-meta {
+      font-size: 10px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .empty-state {
+      padding: 80px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 2;
+      border: 1px solid var(--rule);
+    }
+
+    .empty-arrow {
+      font-family: var(--serif);
+      font-size: 36px;
+      font-style: italic;
+      opacity: 0.2;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 16px 40px;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-left">
+      <a class="logo" href="index.html">Visual Tone</a>
+      <span class="logo-sub">Gallery</span>
+    </div>
+    <a class="back" href="index.html">← Home</a>
+  </header>
+
+  <div class="page-title">
+    <h1>Outputs</h1>
+    <span class="count" id="count">— pages</span>
+  </div>
+
+  <main>
+    <div class="grid" id="grid">
+
+      <!-- ============================================================
+         HOW TO ADD A NEW PAGE:
+         Copy one <a class="card"> block below and edit:
+           href        → path to your html file
+           card-concept → the keyword(s) you typed
+           card-title  → name for this output
+           swatch divs → paste your --color-bg/accent/etc hex values
+           card-meta   → font names or any note
+         ============================================================ -->
+
+
+      <a class="card" href="outputs/page1.html">
+        <div class="card-thumb">
+          <iframe src="outputs/page1.html" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <div class="card-body">
+          <div class="card-concept">cold ocean</div>
+          <div class="card-title">Variant 01</div>
+          <div class="card-swatches">
+            <div class="swatch" style="background:#3483a2;"></div>
+            <div class="swatch" style="background:#257174;"></div>
+            <div class="swatch" style="background:#5591ce;"></div>
+            <div class="swatch" style="background:#2866a4;"></div>
+            <div class="swatch" style="background:#4fa3c4;"></div>
+          </div>
+          <div class="card-meta">
+            <span>Space Grotesk / IBM Plex Mono</span>
+            <span>sparse</span>
+          </div>
+        </div>
+      </a>
+      <a class="card" href="outputs/winter.html">
+        <div class="card-thumb">
+          <iframe src="outputs/winter.html" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <div class="card-body">
+          <div class="card-concept">winter</div>
+          <div class="card-title">Output 02</div>
+          <div class="card-swatches">
+            <div class="swatch" style="background:#dde2e9;"></div>
+            <div class="swatch" style="background:#c7cfe0;"></div>
+            <div class="swatch" style="background:#b7c7d2;"></div>
+            <div class="swatch" style="background:#b7cad7;"></div>
+            <div class="swatch" style="background:#a0b5ca;"></div>
+          </div>
+          <div class="card-meta">
+            <span>Instrument Serif / DM Mono</span>
+            <span>sparse</span>
+          </div>
+        </div>
+      </a>
+      <a class="card" href="outputs/forest-night.html">
+        <div class="card-thumb">
+          <iframe src="outputs/forest-night.html" scrolling="no" tabindex="-1"></iframe>
+        </div>
+        <div class="card-body">
+          <div class="card-concept">forest night</div>
+          <div class="card-title">Output 03</div>
+          <div class="card-swatches">
+            <div class="swatch" style="background:#242a3d;"></div>
+            <div class="swatch" style="background:#1e222f;"></div>
+            <div class="swatch" style="background:#111322;"></div>
+            <div class="swatch" style="background:#241b32;"></div>
+            <div class="swatch" style="background:#14141f;"></div>
+          </div>
+          <div class="card-meta">
+            <span>Instrument Serif / DM Mono</span>
+            <span>sparse</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="empty-state" id="emptyState">
+      <span class="empty-arrow">↗</span>
+      Use the generator to create a style,<br>
+      then build a page and add it here.
+    </div>
+  </main>
+
+  <footer>Visual Tone — RISD 2026</footer>
+
+  <script>
+    const cards = document.querySelectorAll('.card');
+    const countEl = document.getElementById('count');
+    const emptyEl = document.getElementById('emptyState');
+    const grid = document.getElementById('grid');
+
+    if (cards.length > 0) {
+      emptyEl.style.display = 'none';
+      grid.style.display = 'grid';
+      countEl.textContent = `${cards.length} page${cards.length > 1 ? 's' : ''}`;
+    } else {
+      grid.style.display = 'none';
+      countEl.textContent = '0 pages';
+    }
+  </script>
+
+</body>
+
+</html>
