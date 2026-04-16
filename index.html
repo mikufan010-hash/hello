@@ -22,613 +22,134 @@ body {
   color: var(--ink);
   font-family: var(--mono);
   font-size: 13px;
-  height: 100vh;
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  grid-template-rows: 56px 1fr;
-  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
-  grid-column: 1 / -1;
   border-bottom: 1px solid var(--rule);
-  padding: 0 28px;
+  padding: 20px 40px;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 16px;
 }
 
-.logo { font-family: var(--serif); font-size: 20px; font-style: italic; }
+.logo { font-family: var(--serif); font-size: 22px; font-style: italic; }
 .logo-sub { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
 
-aside {
-  border-right: 1px solid var(--rule);
-  padding: 24px 20px;
+main {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  overflow-y: auto;
+  justify-content: center;
+  padding: 80px 40px;
+  max-width: 800px;
 }
 
-label {
-  display: block;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 7px;
-}
-
-textarea {
-  width: 100%;
-  background: transparent;
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  padding: 10px 12px;
-  font-family: var(--mono);
-  font-size: 12px;
+.tagline {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-style: italic;
+  line-height: 1.15;
+  margin-bottom: 24px;
   color: var(--ink);
-  resize: none;
-  line-height: 1.6;
-  outline: none;
-  transition: border-color 0.15s;
 }
-textarea:focus { border-color: var(--ink); }
-textarea::placeholder { color: var(--muted); }
 
-.run {
-  width: 100%;
-  background: var(--ink);
-  color: var(--paper);
-  border: none;
-  border-radius: 3px;
-  padding: 13px;
-  font-family: var(--mono);
+.description {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 440px;
+  margin-bottom: 56px;
+}
+
+.nav-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  border: 1px solid var(--rule);
+  max-width: 560px;
+}
+
+.nav-card {
+  background: var(--paper);
+  padding: 28px;
+  text-decoration: none;
+  color: var(--ink);
+  transition: background 0.15s;
+  display: block;
+}
+
+.nav-card:hover { background: var(--ink); color: var(--paper); }
+.nav-card:hover .nav-arrow { color: var(--paper); }
+.nav-card:hover .nav-sub { color: rgba(255,255,255,0.5); }
+
+.nav-label {
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  cursor: pointer;
-  transition: opacity 0.15s;
-  margin-top: auto;
+  margin-bottom: 8px;
 }
-.run:hover { opacity: 0.8; }
 
-.keywords-list {
-  font-size: 10px;
+.nav-title {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.nav-sub {
+  font-size: 11px;
   color: var(--muted);
-  line-height: 2;
-  column-count: 2;
-}
-
-main {
-  overflow-y: auto;
-  padding: 24px;
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  line-height: 1.6;
   margin-bottom: 20px;
-  min-height: 28px;
+  transition: color 0.15s;
 }
 
-.tag {
-  font-size: 11px;
-  padding: 3px 10px;
-  border-radius: 20px;
-  border: 1px solid var(--rule);
+.nav-arrow {
+  font-size: 18px;
   color: var(--muted);
+  transition: color 0.15s;
 }
 
-.tag.matched {
-  color: #fff;
-  border-color: transparent;
-}
-
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 16px;
-}
-
-.card {
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  overflow: hidden;
-  animation: fadeUp 0.3s ease;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.card-preview {
-  height: 140px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-}
-
-.preview-main {
-  grid-column: 1;
-  grid-row: 1 / 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px;
-}
-
-.preview-top { grid-column: 2; grid-row: 1; }
-
-.preview-bot {
-  grid-column: 2;
-  grid-row: 2;
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-  gap: 5px;
-}
-
-.swatch {
-  width: 14px; height: 14px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.2);
-}
-
-.card-body {
-  padding: 14px 16px;
-  background: var(--paper);
+footer {
   border-top: 1px solid var(--rule);
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.card-tag {
-  font-size: 10px;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.reroll {
-  background: transparent;
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  padding: 4px 8px;
-  font-family: var(--mono);
+  padding: 16px 40px;
   font-size: 10px;
   color: var(--muted);
-  cursor: pointer;
-  transition: all 0.12s;
+  letter-spacing: 0.06em;
 }
-.reroll:hover { border-color: var(--ink); color: var(--ink); }
-
-.swatches-row {
-  display: flex;
-  gap: 5px;
-  margin-bottom: 10px;
-}
-
-.dot {
-  width: 20px; height: 20px;
-  border-radius: 50%;
-  border: 1px solid rgba(0,0,0,0.1);
-  cursor: default;
-  position: relative;
-}
-
-.meta-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11px;
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-
-.css-block {
-  background: #eeebe3;
-  border-radius: 3px;
-  padding: 10px 12px;
-  font-size: 10px;
-  line-height: 1.9;
-  white-space: pre;
-  overflow-x: auto;
-}
-
-.ck { color: #bbb; }
-.cv { color: var(--ink); }
-
-.empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 60vh;
-  gap: 8px;
-  color: var(--muted);
-}
-.empty-arrow { font-family: var(--serif); font-size: 48px; font-style: italic; opacity: 0.15; }
-.empty-text { font-size: 11px; letter-spacing: 0.06em; }
 </style>
 </head>
 <body>
 
 <header>
   <span class="logo">Visual Tone</span>
-  <span class="logo-sub">Keyword Style Generator</span>
+  <span class="logo-sub">A style tool</span>
 </header>
 
-<aside>
-  <div>
-    <label>Concept</label>
-    <textarea id="concept" rows="5" placeholder="cold war space race&#10;late night neon&#10;dry desert heat&#10;soviet brutalist&#10;tokyo jazz bar"></textarea>
-  </div>
-
-  <div>
-    <label>Keywords</label>
-    <div class="keywords-list" id="kwList"></div>
-  </div>
-
-  <button class="run" id="runBtn">Generate →</button>
-</aside>
-
 <main>
-  <div class="tags" id="tags"></div>
-  <div id="output">
-    <div class="empty">
-      <div class="empty-arrow">↗</div>
-      <div class="empty-text">Enter a concept and click Generate</div>
-    </div>
+  <div class="tagline">Concept in,<br>color out.</div>
+  <p class="description">Type a word — cold, baroque, tokyo, anxious — and get a visual style system back. Color, type, layout, CSS variables.</p>
+
+  <div class="nav-cards">
+    <a class="nav-card" href="generator.html">
+      <div class="nav-label">01</div>
+      <div class="nav-title">Generator</div>
+      <div class="nav-sub">Input a concept,<br>generate a palette.</div>
+      <div class="nav-arrow">→</div>
+    </a>
+    <a class="nav-card" href="gallery.html">
+      <div class="nav-label">02</div>
+      <div class="nav-title">Gallery</div>
+      <div class="nav-sub">Pages built from<br>generated styles.</div>
+      <div class="nav-arrow">→</div>
+    </a>
   </div>
 </main>
 
-<script>
-const COLOR_MAP = {
-  // temperature / light
-  cold:        { hues:[200,210,220,230],     sat:[40,70],  lit:[30,75],  label:'cold blues' },
-  ice:         { hues:[190,200,210],         sat:[20,50],  lit:[70,90],  label:'icy pale' },
-  warm:        { hues:[20,35,45],            sat:[60,90],  lit:[40,70],  label:'warm ambers' },
-  fire:        { hues:[0,15,30],             sat:[80,100], lit:[35,60],  label:'fire reds' },
-  hot:         { hues:[5,20,35],             sat:[75,95],  lit:[40,65],  label:'heat tones' },
-  dark:        { hues:[220,240,260],         sat:[10,30],  lit:[5,25],   label:'deep darks' },
-  night:       { hues:[230,245,260],         sat:[20,45],  lit:[8,22],   label:'midnight' },
-  light:       { hues:[50,60,70],            sat:[10,30],  lit:[88,97],  label:'soft lights' },
-  bright:      { hues:[45,55,180],           sat:[70,100], lit:[50,70],  label:'vivid brights' },
-  neon:        { hues:[120,170,290,310],     sat:[90,100], lit:[50,65],  label:'neon glow' },
-  // nature
-  space:       { hues:[220,240,260,280],     sat:[30,60],  lit:[5,30],   label:'deep space' },
-  ocean:       { hues:[190,205,220],         sat:[50,80],  lit:[30,60],  label:'ocean depths' },
-  sea:         { hues:[185,200,215],         sat:[45,75],  lit:[35,65],  label:'sea blues' },
-  forest:      { hues:[100,120,140],         sat:[30,60],  lit:[20,50],  label:'forest greens' },
-  desert:      { hues:[30,40,50],            sat:[40,70],  lit:[55,75],  label:'desert sand' },
-  fog:         { hues:[200,210,220],         sat:[5,20],   lit:[70,85],  label:'foggy grey' },
-  sunset:      { hues:[10,25,40,280,300],    sat:[70,95],  lit:[45,70],  label:'sunset hues' },
-  rain:        { hues:[200,215,230],         sat:[15,40],  lit:[35,65],  label:'rainy grey' },
-  smoke:       { hues:[210,220,230],         sat:[5,15],   lit:[40,75],  label:'smoky grey' },
-  earth:       { hues:[25,40,55,80],         sat:[25,55],  lit:[30,60],  label:'earth tones' },
-  mud:         { hues:[25,35,45],            sat:[30,55],  lit:[20,40],  label:'muddy earth' },
-  snow:        { hues:[200,210,220],         sat:[5,15],   lit:[88,98],  label:'snow white' },
-  storm:       { hues:[220,235,250],         sat:[15,35],  lit:[15,40],  label:'storm grey' },
-  moss:        { hues:[90,105,120],          sat:[25,50],  lit:[25,45],  label:'mossy green' },
-  sand:        { hues:[38,48,58],            sat:[30,55],  lit:[65,80],  label:'sandy beige' },
-  ash:         { hues:[0,200,220],           sat:[0,8],    lit:[55,80],  label:'ash grey' },
-  lava:        { hues:[0,10,20],             sat:[85,100], lit:[25,50],  label:'molten lava' },
-  // seasons
-  summer:      { hues:[40,55,170,185],       sat:[60,90],  lit:[55,78],  label:'summer brights' },
-  autumn:      { hues:[20,35,50,65],         sat:[50,80],  lit:[35,60],  label:'autumn earth' },
-  spring:      { hues:[80,100,150,300],      sat:[40,70],  lit:[60,80],  label:'spring bloom' },
-  winter:      { hues:[200,215,230],         sat:[10,35],  lit:[70,90],  label:'winter pale' },
-  // decades
-  '1920s':     { hues:[35,45,55,200],        sat:[20,45],  lit:[30,60],  label:'art deco gold' },
-  '1930s':     { hues:[25,35,210,220],       sat:[15,40],  lit:[25,55],  label:'depression era' },
-  '1940s':     { hues:[70,90,30,45],         sat:[20,45],  lit:[25,50],  label:'wartime khaki' },
-  '1950s':     { hues:[180,195,0,15],        sat:[50,80],  lit:[55,75],  label:'atomic age' },
-  '1960s':     { hues:[280,300,50,65],       sat:[60,90],  lit:[50,70],  label:'psychedelic pop' },
-  '1970s':     { hues:[25,40,80,100],        sat:[45,75],  lit:[40,65],  label:'earthy seventies' },
-  '1980s':     { hues:[290,310,170,185],     sat:[70,100], lit:[45,70],  label:'eighties synthwave' },
-  '1990s':     { hues:[0,120,240],           sat:[40,80],  lit:[40,65],  label:'nineties grunge' },
-  '2000s':     { hues:[210,225,180,195],     sat:[30,60],  lit:[50,75],  label:'early web' },
-  '2010s':     { hues:[200,215,145,160],     sat:[40,70],  lit:[55,75],  label:'flat design era' },
-  // cities
-  paris:       { hues:[45,55,200,210],       sat:[20,45],  lit:[65,85],  label:'parisian cream' },
-  berlin:      { hues:[210,225,0,10],        sat:[10,35],  lit:[20,55],  label:'berlin grey' },
-  nyc:         { hues:[220,235,40,50],       sat:[10,30],  lit:[15,50],  label:'new york concrete' },
-  london:      { hues:[200,215,230],         sat:[8,20],   lit:[35,60],  label:'london fog' },
-  tokyo:       { hues:[0,180,200,300],       sat:[50,90],  lit:[40,70],  label:'tokyo neon' },
-  moscow:      { hues:[0,10,215,225],        sat:[50,80],  lit:[20,50],  label:'moscow red' },
-  rome:        { hues:[20,35,50],            sat:[40,70],  lit:[50,70],  label:'roman ochre' },
-  havana:      { hues:[30,45,170,185],       sat:[55,85],  lit:[50,70],  label:'havana tropical' },
-  shanghai:    { hues:[0,15,210,225],        sat:[50,80],  lit:[30,60],  label:'shanghai red' },
-  cairo:       { hues:[35,48,60],            sat:[45,70],  lit:[55,75],  label:'cairo sand' },
-  miami:       { hues:[175,190,330,345],     sat:[55,85],  lit:[55,75],  label:'miami pastel' },
-  stockholm:   { hues:[195,210,45,55],       sat:[15,40],  lit:[65,85],  label:'nordic pale' },
-  bangkok:     { hues:[42,55,0,15],          sat:[60,90],  lit:[45,70],  label:'thai gold' },
-  nairobi:     { hues:[25,40,100,115],       sat:[50,80],  lit:[35,60],  label:'savanna earth' },
-  lisbon:      { hues:[200,215,30,45],       sat:[30,60],  lit:[55,78],  label:'lisbon tile' },
-  mumbai:      { hues:[30,45,0,15],          sat:[60,90],  lit:[40,65],  label:'mumbai spice' },
-  // moods
-  melancholy:  { hues:[220,235,250],         sat:[15,35],  lit:[25,50],  label:'melancholic blue' },
-  euphoric:    { hues:[45,60,300,315],       sat:[70,100], lit:[55,75],  label:'euphoric burst' },
-  anxious:     { hues:[55,70,0,10],          sat:[50,80],  lit:[40,65],  label:'anxious yellow' },
-  calm:        { hues:[190,205,220],         sat:[20,45],  lit:[55,75],  label:'calming teal' },
-  nostalgic:   { hues:[30,45,200,210],       sat:[25,50],  lit:[60,80],  label:'nostalgic haze' },
-  lonely:      { hues:[220,235,250],         sat:[10,25],  lit:[20,45],  label:'lonely blue' },
-  romantic:    { hues:[340,355,15,25],       sat:[45,75],  lit:[45,70],  label:'romantic rose' },
-  angry:       { hues:[0,10,20],             sat:[75,100], lit:[25,50],  label:'burning red' },
-  hopeful:     { hues:[45,60,175,190],       sat:[50,80],  lit:[55,75],  label:'hopeful gold' },
-  dread:       { hues:[250,265,280],         sat:[20,45],  lit:[8,28],   label:'creeping dread' },
-  tender:      { hues:[340,355,30,45],       sat:[25,50],  lit:[70,88],  label:'tender pink' },
-  eerie:       { hues:[140,160,270,285],     sat:[30,60],  lit:[15,40],  label:'eerie green' },
-  serene:      { hues:[185,200,215],         sat:[20,40],  lit:[65,82],  label:'serene water' },
-  grief:       { hues:[220,235,0,5],         sat:[5,20],   lit:[15,40],  label:'grieving grey' },
-  joy:         { hues:[45,60,15,30],         sat:[70,100], lit:[55,75],  label:'joyful yellow' },
-  fear:        { hues:[260,275,290],         sat:[25,50],  lit:[10,30],  label:'fearful dark' },
-  wonder:      { hues:[220,240,280,295],     sat:[40,70],  lit:[40,65],  label:'sense of wonder' },
-  // materials
-  glass:       { hues:[195,210,225],         sat:[20,50],  lit:[70,90],  label:'glass clarity' },
-  wood:        { hues:[25,38,50],            sat:[35,60],  lit:[35,55],  label:'warm wood' },
-  silk:        { hues:[300,315,45,55],       sat:[20,45],  lit:[70,88],  label:'silken sheen' },
-  leather:     { hues:[20,32,45],            sat:[35,60],  lit:[20,45],  label:'worn leather' },
-  marble:      { hues:[200,210,30,40],       sat:[5,20],   lit:[75,92],  label:'marble white' },
-  rust:        { hues:[15,25,35],            sat:[55,80],  lit:[30,50],  label:'oxidized rust' },
-  concrete:    { hues:[210,220,230],         sat:[3,12],   lit:[40,70],  label:'raw concrete' },
-  copper:      { hues:[18,28,38],            sat:[55,80],  lit:[35,55],  label:'aged copper' },
-  velvet:      { hues:[270,285,300],         sat:[40,70],  lit:[20,45],  label:'deep velvet' },
-  linen:       { hues:[40,50,60],            sat:[15,35],  lit:[75,88],  label:'natural linen' },
-  steel:       { hues:[200,215,230],         sat:[5,20],   lit:[40,65],  label:'cold steel' },
-  wax:         { hues:[45,55,65],            sat:[20,40],  lit:[78,92],  label:'wax yellow' },
-  ceramic:     { hues:[195,210,35,50],       sat:[10,30],  lit:[75,90],  label:'ceramic glaze' },
-  paper:       { hues:[40,50,60],            sat:[10,25],  lit:[82,95],  label:'aged paper' },
-  ink:         { hues:[220,235,250],         sat:[20,45],  lit:[5,25],   label:'deep ink' },
-  chrome:      { hues:[205,215,225],         sat:[5,15],   lit:[60,85],  label:'chrome shine' },
-  bronze:      { hues:[30,40,50],            sat:[45,70],  lit:[30,50],  label:'antique bronze' },
-  // scenes
-  hospital:    { hues:[175,190,205],         sat:[10,30],  lit:[75,92],  label:'clinical white' },
-  library:     { hues:[30,42,55],            sat:[25,50],  lit:[45,65],  label:'library wood' },
-  subway:      { hues:[210,225,0,10],        sat:[8,25],   lit:[20,45],  label:'subway grey' },
-  casino:      { hues:[42,52,0,10],          sat:[70,95],  lit:[25,50],  label:'casino gold' },
-  church:      { hues:[42,52,200,215],       sat:[20,50],  lit:[50,75],  label:'stained glass' },
-  market:      { hues:[30,45,0,15],          sat:[55,85],  lit:[45,70],  label:'market spice' },
-  cinema:      { hues:[0,10,220,235],        sat:[50,80],  lit:[10,35],  label:'cinema dark' },
-  diner:       { hues:[0,15,45,55],          sat:[55,85],  lit:[50,70],  label:'american diner' },
-  office:      { hues:[205,220,235],         sat:[5,20],   lit:[60,80],  label:'office neutral' },
-  factory:     { hues:[30,45,200,215],       sat:[10,30],  lit:[25,50],  label:'factory floor' },
-  greenhouse:  { hues:[90,110,130],          sat:[35,65],  lit:[50,72],  label:'greenhouse green' },
-  rooftop:     { hues:[200,215,280,295],     sat:[20,50],  lit:[40,70],  label:'rooftop dusk' },
-  basement:    { hues:[220,235,250],         sat:[5,20],   lit:[8,25],   label:'basement dark' },
-  bedroom:     { hues:[340,355,200,215],     sat:[15,40],  lit:[65,85],  label:'bedroom soft' },
-  laboratory:  { hues:[175,190,205],         sat:[15,40],  lit:[65,85],  label:'lab sterile' },
-  arcade:      { hues:[300,315,170,185],     sat:[75,100], lit:[40,65],  label:'arcade neon' },
-  airport:     { hues:[200,215,40,50],       sat:[10,25],  lit:[65,85],  label:'airport neutral' },
-  bar:         { hues:[25,38,200,215],       sat:[30,60],  lit:[15,40],  label:'dim bar' },
-  // aesthetics
-  industrial:  { hues:[20,30,210],           sat:[5,25],   lit:[30,55],  label:'industrial grey' },
-  retro:       { hues:[15,40,170,280],       sat:[40,70],  lit:[50,70],  label:'retro tones' },
-  vintage:     { hues:[35,45,55],            sat:[20,45],  lit:[60,80],  label:'faded vintage' },
-  pastel:      { hues:[0,60,120,180,240,300],sat:[20,45],  lit:[75,90],  label:'soft pastels' },
-  gold:        { hues:[42,48,54],            sat:[70,90],  lit:[45,65],  label:'golden' },
-  silver:      { hues:[210,220,230],         sat:[5,20],   lit:[65,85],  label:'silver grey' },
-  toxic:       { hues:[75,90,100],           sat:[80,100], lit:[40,65],  label:'toxic green' },
-  soviet:      { hues:[0,10,215,225],        sat:[60,85],  lit:[25,55],  label:'soviet palette' },
-  war:         { hues:[35,50,70,100],        sat:[20,50],  lit:[20,45],  label:'military tones' },
-  japan:       { hues:[350,5,180,200],       sat:[30,70],  lit:[40,75],  label:'japanese' },
-  punk:        { hues:[300,310,0,60],        sat:[80,100], lit:[35,60],  label:'punk contrast' },
-  minimal:     { hues:[0,0,0],               sat:[0,5],    lit:[20,90],  label:'minimal mono' },
-  luxury:      { hues:[35,45,260,270],       sat:[40,80],  lit:[15,55],  label:'luxury dark' },
-  brutalist:   { hues:[0,30,50],             sat:[0,15],   lit:[15,70],  label:'brutalist raw' },
-  electric:    { hues:[180,210,260],         sat:[80,100], lit:[45,65],  label:'electric' },
-  candy:       { hues:[300,330,0,30,60],     sat:[60,90],  lit:[65,85],  label:'candy tones' },
-  blood:       { hues:[0,5,355],             sat:[70,90],  lit:[20,40],  label:'deep red' },
-  jazz:        { hues:[35,45,260,270],       sat:[30,60],  lit:[15,50],  label:'jazz noir' },
-  nuclear:     { hues:[65,80,90],            sat:[80,100], lit:[50,70],  label:'nuclear green' },
-  cyber:       { hues:[170,190,280,300],     sat:[80,100], lit:[40,65],  label:'cyberpunk' },
-  gothic:      { hues:[270,285,300,0],       sat:[30,60],  lit:[8,28],   label:'gothic dark' },
-  baroque:     { hues:[38,48,58,270],        sat:[45,75],  lit:[30,55],  label:'baroque opulence' },
-  tropical:    { hues:[150,165,45,60],       sat:[65,95],  lit:[45,70],  label:'tropical vivid' },
-  cottagecore: { hues:[80,100,340,355],      sat:[25,55],  lit:[60,80],  label:'cottage bloom' },
-  vaporwave:   { hues:[280,295,175,190],     sat:[60,90],  lit:[55,75],  label:'vaporwave' },
-  grunge:      { hues:[35,50,200,215],       sat:[15,40],  lit:[20,45],  label:'grunge dark' },
-  preppy:      { hues:[210,225,0,15],        sat:[55,85],  lit:[45,70],  label:'preppy classic' },
-// food / drink
-  coffee:      { hues:[25,35,45],            sat:[40,65],  lit:[15,35],  label:'coffee brown' },
-  wine:        { hues:[340,355,10],           sat:[50,75],  lit:[20,40],  label:'deep wine' },
-  matcha:      { hues:[85,100,115],           sat:[35,60],  lit:[35,55],  label:'matcha green' },
-  honey:       { hues:[40,50,58],             sat:[65,85],  lit:[55,70],  label:'golden honey' },
-  milk:        { hues:[45,52,58],             sat:[8,20],   lit:[88,96],  label:'milk white' },
-  whiskey:     { hues:[28,38,48],             sat:[55,80],  lit:[40,60],  label:'whiskey amber' },
-  // music genres
-  classical:   { hues:[38,48,200,210],        sat:[15,35],  lit:[50,75],  label:'classical gold' },
-  hiphop:      { hues:[0,15,220,235],         sat:[40,70],  lit:[15,40],  label:'hip hop contrast' },
-  metal:       { hues:[220,235,0,10],         sat:[10,30],  lit:[5,25],   label:'metal black' },
-  folk:        { hues:[30,45,80,95],          sat:[25,50],  lit:[40,65],  label:'folk earth' },
-  electronic:  { hues:[190,210,280,300],      sat:[70,100], lit:[40,65],  label:'electronic pulse' },
-  blues:       { hues:[210,225,240],          sat:[30,55],  lit:[20,45],  label:'deep blues' },
-  // architecture
-  bauhaus:     { hues:[0,60,240],             sat:[60,90],  lit:[40,65],  label:'bauhaus primary' },
-  gothic:      { hues:[270,285,300,0],        sat:[30,60],  lit:[8,28],   label:'gothic dark' },
-  baroque:     { hues:[38,48,58,270],         sat:[45,75],  lit:[30,55],  label:'baroque opulence' },
-  modernist:   { hues:[200,215,0,5],          sat:[5,20],   lit:[55,80],  label:'modernist clean' },
-  // time of day
-  dawn:        { hues:[20,35,280,295],        sat:[40,70],  lit:[65,82],  label:'dawn pink' },
-  dusk:        { hues:[15,30,255,270],        sat:[45,75],  lit:[35,60],  label:'dusk purple' },
-  noon:        { hues:[45,55,190,200],        sat:[50,80],  lit:[65,82],  label:'midday bright' },
-  midnight:    { hues:[230,245,260],          sat:[25,50],  lit:[5,20],   label:'deep midnight' },
-  // weather
-  overcast:    { hues:[205,218,230],          sat:[5,18],   lit:[55,75],  label:'overcast grey' },
-  thunder:     { hues:[240,255,270],          sat:[20,45],  lit:[10,30],  label:'thunderstorm' },
-  heatwave:    { hues:[15,28,42],             sat:[70,95],  lit:[50,70],  label:'heatwave orange' },
-  blizzard:    { hues:[200,212,225],          sat:[5,18],   lit:[80,95],  label:'blizzard white' },
-};
+<footer>Visual Tone — RISD 2026</footer>
 
-
-const FONT_PAIRS = [
-  { heading:'Playfair Display', body:'Source Serif 4' },
-  { heading:'Space Grotesk',    body:'DM Sans' },
-  { heading:'Bebas Neue',       body:'IBM Plex Mono' },
-  { heading:'Cormorant Garamond', body:'Lato' },
-  { heading:'Syne',             body:'Inter' },
-  { heading:'DM Serif Display', body:'DM Mono' },
-  { heading:'Oswald',           body:'Source Sans 3' },
-  { heading:'Libre Baskerville',body:'Nunito' },
-  { heading:'Archivo Black',    body:'Roboto' },
-  { heading:'Raleway',          body:'Merriweather' },
-];
-
-const LAYOUTS   = ['strict grid','free flow','modular blocks','editorial columns','asymmetric','centered minimal'];
-const DENSITIES = ['sparse','balanced','dense'];
-const RADII     = ['0px','2px','4px','8px','16px'];
-
-function rand(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
-function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
-
-function hslToHex(h,s,l){
-  s/=100; l/=100;
-  const a=s*Math.min(l,1-l);
-  const f=n=>{ const k=(n+h/30)%12; const c=l-a*Math.max(Math.min(k-3,9-k,1),-1); return Math.round(255*c).toString(16).padStart(2,'0'); };
-  return `#${f(0)}${f(8)}${f(4)}`;
-}
-
-function parseConcept(text){
-  const words = text.toLowerCase().split(/[\s,\/\-]+/).filter(Boolean);
-  const matched=[]; const unmatched=[]; const pools=[];
-  words.forEach(w=>{
-    const key = Object.keys(COLOR_MAP).find(k=>w.includes(k)||k.includes(w));
-    if(key){ if(!matched.includes(key)){ matched.push(key); pools.push(COLOR_MAP[key]); } }
-    else unmatched.push(w);
-  });
-  if(pools.length===0) pools.push(pick(Object.values(COLOR_MAP)));
-  return {matched,unmatched,pools};
-}
-
-function generatePalette(pools){
-  const pool = pick(pools);
-  const colors=[];
-  const used=new Set();
-  for(let i=0;i<5;i++){
-    let h,s,l,hex,tries=0;
-    do {
-      h=pick(pool.hues)+rand(-8,8);
-      s=rand(pool.sat[0],pool.sat[1]);
-      l=rand(pool.lit[0],pool.lit[1]);
-      hex=hslToHex(h,s,l);
-      tries++;
-    } while(used.has(hex)&&tries<20);
-    used.add(hex);
-    colors.push({h,s,l,hex});
-  }
-  colors.sort((a,b)=>a.l-b.l);
-  return {
-    bg:        colors[4].hex,
-    surface:   colors[3].hex,
-    highlight: colors[2].hex,
-    accent:    colors[1].hex,
-    text:      colors[0].hex,
-    fontPair:  pick(FONT_PAIRS),
-    layout:    pick(LAYOUTS),
-    density:   pick(DENSITIES),
-    radius:    pick(RADII),
-    label:     pool.label,
-  };
-}
-
-function buildCard(palette, concept, idx, pools){
-  const {bg,surface,accent,highlight,text,fontPair,layout,density,radius,label}=palette;
-  const cssLines = [
-    ['--color-bg',        bg],
-    ['--color-surface',   surface],
-    ['--color-accent',    accent],
-    ['--color-highlight', highlight],
-    ['--color-text',      text],
-    ['--font-heading',    `'${fontPair.heading}', serif`],
-    ['--font-body',       `'${fontPair.body}', sans-serif`],
-    ['--spacing-unit',    '8px'],
-    ['--border-radius',   radius],
-  ].map(([k,v])=>`<span class="ck">${k}:</span> <span class="cv">${v};</span>`).join('\n');
-
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.innerHTML = `
-    <div class="card-preview">
-      <div class="preview-main" style="background:${bg};">
-        <span style="font-size:15px;font-weight:500;color:${text};text-align:center;line-height:1.4;">${label}</span>
-      </div>
-      <div class="preview-top" style="background:${surface};"></div>
-      <div class="preview-bot" style="background:${accent};">
-        ${[bg,surface,accent,highlight,text].map(c=>`<div class="swatch" style="background:${c};"></div>`).join('')}
-      </div>
-    </div>
-    <div class="card-body">
-      <div class="card-header">
-        <div class="card-tag">Variant ${idx} — ${concept}</div>
-        <button class="reroll">Reroll ↺</button>
-      </div>
-      <div class="swatches-row">
-        ${[bg,surface,accent,highlight,text].map(c=>`<div class="dot" style="background:${c};" title="${c}"></div>`).join('')}
-      </div>
-      <div class="meta-row">
-        <span>${fontPair.heading} / ${fontPair.body}</span>
-        <span>${layout} · ${density}</span>
-      </div>
-      <div class="css-block">${cssLines}</div>
-    </div>
-  `;
-
-  card.querySelector('.reroll').addEventListener('click',()=>{
-    const np = generatePalette(pools);
-    card.replaceWith(buildCard(np, concept, idx, pools));
-  });
-
-  return card;
-}
-
-function run(){
-  const concept = document.getElementById('concept').value.trim();
-  if(!concept) return;
-
-  const {matched,unmatched,pools} = parseConcept(concept);
-
-  const tagsEl = document.getElementById('tags');
-  tagsEl.innerHTML = '';
-  matched.forEach(w=>{
-    const p = COLOR_MAP[w];
-    const bg = hslToHex(pick(p.hues), rand(p.sat[0],p.sat[1]), rand(35,55));
-    const t = document.createElement('span');
-    t.className='tag matched';
-    t.style.background=bg;
-    t.textContent=`${w} → ${p.label}`;
-    tagsEl.appendChild(t);
-  });
-  unmatched.forEach(w=>{
-    const t=document.createElement('span');
-    t.className='tag';
-    t.textContent=`${w} (unrecognized)`;
-    tagsEl.appendChild(t);
-  });
-
-  const out = document.getElementById('output');
-  out.innerHTML = '<div class="cards-grid" id="grid"></div>';
-  const grid = document.getElementById('grid');
-
-  for(let i=0;i<4;i++){
-    grid.appendChild(buildCard(generatePalette(pools), concept, i+1, pools));
-  }
-}
-
-document.getElementById('runBtn').addEventListener('click', run);
-document.getElementById('concept').addEventListener('keydown', e=>{
-  if(e.key==='Enter'&&e.metaKey) run();
-});
-
-// Populate keywords list
-const kwList = document.getElementById('kwList');
-kwList.innerHTML = Object.keys(COLOR_MAP).join('<br>');
-</script>
 </body>
 </html>
